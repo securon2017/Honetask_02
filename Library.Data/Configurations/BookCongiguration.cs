@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Library.Data.Configurations
 {
     public class BookCongiguration : IEntityTypeConfiguration<Book>
     {
         public void Configure(EntityTypeBuilder<Book> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
         }
     }
 }
