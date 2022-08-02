@@ -11,13 +11,14 @@ namespace Library.Data
 {
     public class MyLibraryDbContext : DbContext
     {
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+
         public MyLibraryDbContext(DbContextOptions<MyLibraryDbContext> options)
             : base(options)
         { }
 
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<Rating> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

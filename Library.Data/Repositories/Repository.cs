@@ -12,51 +12,51 @@ namespace Library.Data.Repositories
     public class Repository<TEntity>: IRepository<TEntity> 
         where TEntity : class
     {
-        protected readonly DbContext _context;
+        protected readonly DbContext Context;
 
         public Repository(DbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public async Task AddAsync(TEntity entity)
         {
-            await _context.Set<TEntity>().AddAsync(entity);
+            await Context.Set<TEntity>().AddAsync(entity);
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
-            await _context.Set<TEntity>().AddRangeAsync(entities);
+            await Context.Set<TEntity>().AddRangeAsync(entities);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().Where(predicate);
+            return Context.Set<TEntity>().Where(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await Context.Set<TEntity>().ToListAsync();
         }
 
         public ValueTask<TEntity> GetByIdAsync(int id)
         {
-            return _context.Set<TEntity>().FindAsync(id);
+            return Context.Set<TEntity>().FindAsync(id);
         }
 
         public void Remove(TEntity entity)
         {
-            _context.Set<TEntity>().Remove(entity);
+            Context.Set<TEntity>().Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            _context.Set<TEntity>().RemoveRange(entities);
+            Context.Set<TEntity>().RemoveRange(entities);
         }
 
         public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
+            return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Library.Core.Services
 {
     public interface IBookService
     {
+        Task<IEnumerable<Book>> GetAllBooksAsync();
         Task<IEnumerable<Book>> GetAllBooksOrderByValue(string value);
         Task<IEnumerable<Book>> GetTopTenBooksByRating(string genre);
         Task<Book> GetBookWithReviewsByBookId(int id);

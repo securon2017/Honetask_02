@@ -19,5 +19,6 @@ namespace Library.Data.Configurations
                 .WithMany(y => y.Ratings)
                 .HasForeignKey(x => x.BookId);
         }
+        
     }
 }
