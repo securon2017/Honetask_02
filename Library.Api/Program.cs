@@ -4,6 +4,7 @@ using Library.Data;
 using Library.Services;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Library.Api.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,13 @@ builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    BooksContextSeed.SeedAsync(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

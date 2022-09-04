@@ -1,16 +1,22 @@
 ﻿using Library.Api.Resources;
 using Library.Core.Models;
 using Library.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.Api.Seed
 {
     public class BooksContextSeed
     {
-        public static void SeedAsync(MyLibraryDbContext myLibraryDbContext)
+        public static void SeedAsync(IServiceProvider serviceProvider)
         {
-            if (!myLibraryDbContext.Books.Any())
+            using var context = new MyLibraryDbContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<MyLibraryDbContext>>());
+            if (context.Books.Any())
             {
-                var books = new List<Book>
+                return;
+            }
+            var books = new List<Book>
                 {
                     new Book
                     {
@@ -22,7 +28,7 @@ namespace Library.Api.Seed
                         "terror from an award-winning author pairs well with 1984 or " +
                         "The Handmaid's Tale and includes a foreword by N. K. Jemisin " +
                         "(John Green, New York Times).",
-                        Cover = "cover",                       
+                        Cover = "cover",
                     },
                     new Book
                     {
@@ -122,9 +128,8 @@ namespace Library.Api.Seed
                     }
                 };
 
-                myLibraryDbContext.Books.AddRange(books);
-                myLibraryDbContext.SaveChangesAsync();
-            }
+            context.Books.AddRange(books);
+            context.SaveChangesAsync();
         }
     }
 }
